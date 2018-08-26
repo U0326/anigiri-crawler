@@ -10,6 +10,8 @@ from db.search_keywords import SearchKeyword
 
 import requests
 
+logger = logging.getLogger(__name__)
+
 class AnimeListTaker:
     END_POINT = "http://api.moemoe.tokyo/anime/v1/master"
 
@@ -65,7 +67,7 @@ class AnimeListRegister:
         anime = session.query(AnimeList) \
                 .filter(AnimeList.title == title) \
                 .first()
-        logging.debug(str(anime))
+        logger.debug(str(anime))
         return anime
 
     def regist_search_keywords(self, src):
@@ -85,10 +87,10 @@ if __name__  == '__main__':
     try:
         anime_list = taker.request_corrent_cour_list()
     except:
-        logging.exception("A HTTP request to take anime list is failed.")
+        logger.exception("A HTTP request to take anime list is failed.")
     
     register = AnimeListRegister(date, anime_list)
     try:
         register.regist()
     except:
-        logging.exception("Registration to DB failed.")
+        logger.exception("Registration to DB failed.")

@@ -4,9 +4,9 @@ import datetime
 import logging
 import json
 
-from db.setting import session
-from db.anime_lists import AnimeList
-from db.search_keywords import SearchKeyword
+from ..db.setting import session
+from ..db.anime_lists import AnimeList
+from ..db.search_keywords import SearchKeyword
 
 import requests
 
@@ -46,7 +46,7 @@ class AnimeListRegister:
         self.anime_list = anime_list
 
     def regist(self):
-        for element in anime_list:
+        for element in self.anime_list:
             try:
                 if self.select_anime_with_title(element['title']): continue
                 self.regist_anime_list(element)
@@ -80,17 +80,3 @@ class AnimeListRegister:
             search_keyword.anime_id = anime.table_id
             search_keyword.keyword = word
             session.add(search_keyword)
-
-if __name__  == '__main__':
-    date = datetime.datetime.now()
-    taker = AnimeListTaker(date)
-    try:
-        anime_list = taker.request_corrent_cour_list()
-    except:
-        logger.exception("A HTTP request to take anime list is failed.")
-    
-    register = AnimeListRegister(date, anime_list)
-    try:
-        register.regist()
-    except:
-        logger.exception("Registration to DB failed.")

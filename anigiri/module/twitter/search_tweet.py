@@ -2,7 +2,7 @@ import json
 import logging
 from datetime import datetime, date, timedelta
 
-from twitter_config import twitter_api
+from .twitter_config import twitter_api
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

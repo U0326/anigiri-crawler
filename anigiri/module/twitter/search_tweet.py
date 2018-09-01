@@ -12,13 +12,16 @@ class SearchTweet:
     TWEETS_PER_PAGE = 50
     NEGATIVE_WORDS = ['切った', '辞めた', 'やめた']
 
+    def __init__(self, date):
+        self.today = date
+
     def search_yestaday_tweet(self, query):
-        today = datetime.today()
-        yestaday = (today - timedelta(days=1)).date()
+        # today = datetime.today()
+        yestaday = (self.today - timedelta(days=1)).date()
 
         params = {
                 'count' : self.TWEETS_PER_PAGE,
-                'until': today.strftime('%Y-%m-%d'),
+                'until': self.today.strftime('%Y-%m-%d'),
                 'q' : query
                 }
 

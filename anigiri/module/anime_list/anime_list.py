@@ -7,6 +7,7 @@ import json
 from ..db.setting import session
 from ..db.anime_lists import AnimeList
 from ..db.search_keywords import SearchKeyword
+from ..common.anime_cour import Cours
 
 import requests
 
@@ -25,19 +26,6 @@ class AnimeListTaker:
                 + "/" + str(Cours.convert_month_to_cour(self.date.month)))
         response.raise_for_status()
         return response.json()
-
-
-class Cours(Enum):
-    COUR_1 = (1, range(1, 3))
-    COUR_2 = (2, range(4, 6))
-    COUR_3 = (3, range(7, 9))
-    COUR_4 = (4, range(10, 12))
-
-    @classmethod
-    def convert_month_to_cour(self, month):
-        for cour in Cours:
-            if month in cour.value[1]:
-                return cour.value[0]
 
 
 class AnimeListRegister:
@@ -72,11 +60,26 @@ class AnimeListRegister:
 
     def regist_search_keywords(self, src):
         anime = self.select_anime_with_title(src['title'])
-        words = set([src['title'], src['title_short1'], \
-                src['title_short2'], src['title_short3']])
-        for word in words:
-            if not word: continue
+        words = list(filter(lambda str:str!= '', {src['title'], src['title_short1'], \
+                src['title_short2'], src['title_short3']}))
+        for word in self.delete_duplicate_word(words):
             search_keyword = SearchKeyword()
             search_keyword.anime_id = anime.table_id
             search_keyword.keyword = word
             session.add(search_keyword)
+
+    def delete_duplicate_word(self, words):
+        result_list = []
+        for i in range(0, len(words)):
+            print("i: " + words[i])
+            for j in range(0, len(words)):
+                if i == j: continue
+                print("j: " + words[j])
+                # あるワードに含まれるより短いワードがある場合、
+                if words[i].find(words[j]) != -1:
+                    # 短い方を優先する。
+                    break
+            else:
+                result_list.append(words[i])
+        return result_list
+

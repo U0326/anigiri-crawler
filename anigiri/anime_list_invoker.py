@@ -13,9 +13,11 @@ if __name__  == '__main__':
         anime_list = taker.request_corrent_cour_list()
     except:
         logger.exception("A HTTP request to take anime list is failed.")
+        raise
     
     register = AnimeListRegister(date, anime_list)
     try:
         register.regist()
     except:
         logger.exception("Registration to DB failed.")
+        raise

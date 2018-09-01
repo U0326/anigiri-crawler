@@ -14,10 +14,11 @@ class AnimeList(Base):
     cour = Column('cour', Integer)
     title = Column('title', String(100))
 
-    def __str__(self):
+    def __repr__(self):
         string = self.__class__.__name__
         string += ' id:' + str(self.table_id)
         string += ', year:' + str(self.year)
         string += ', cour:' + str(self.cour)
         string += ', title:' + self.title
         return string
+

@@ -64,7 +64,7 @@ class AnimeListRegister:
                 src['title_short2'], src['title_short3']}))
         for word in self.delete_duplicate_word(words):
             search_keyword = SearchKeyword()
-            search_keyword.anime_id = anime.table_id
+            search_keyword.anime_id = anime.row_id
             search_keyword.keyword = word
             session.add(search_keyword)
 

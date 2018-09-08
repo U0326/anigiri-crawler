@@ -28,7 +28,7 @@ class SearchWordsTaker:
     def take_search_words(self, anime):
         try:
             rows = session.query(SearchKeyword.keyword) \
-                    .filter(SearchKeyword.anime_id == anime.table_id) \
+                    .filter(SearchKeyword.anime_id == anime.row_id) \
                     .all()
             logger.debug(pprint.pformat(rows))
             return list(map(lambda row:row.keyword, rows))

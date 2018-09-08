@@ -29,6 +29,7 @@ class SearchTweet:
                 'count'         : self.TWEETS_PER_PAGE,
                 'until'         : yestaday.strftime('%Y-%m-%d') + '_23:59:59_JST',
                 'result_type'   : 'mixed',
+                'lang'          : 'ja',
                 'q'             : query
                 }
 
@@ -38,11 +39,11 @@ class SearchTweet:
             if 'max_id' in locals() : params['max_id'] = max_id
             try:
                 self.avoidLimited()
-                logger.info('Search query: ' + str(params))
+                logger.debug('Search query: ' + str(params))
                 response = twitter_api.get(self.SEARCH_URL, params = params)
                 response.raise_for_status()
                 timeline = json.loads(response.text)['statuses']
-                logger.info('Timeline size: ' + str(len(timeline)))
+                logger.debug('Timeline size: ' + str(len(timeline)))
             except:
                 logger.exception('A HTTP request to take tweet is failed.')
                 raise
@@ -78,6 +79,7 @@ class SearchTweet:
     def avoidLimited(self):
         self.search_count += 1
         if self.search_count >= self.LIMITED_COUNT_OF_CONTINUOUSLY_SEARCH:
+            logger.info('APIの利用制限を回避する為、スリープします。')
             time.sleep(self.COOLDOWN_MINUTES_OF_SEARCH * 60)
             self.search_count = 0
 

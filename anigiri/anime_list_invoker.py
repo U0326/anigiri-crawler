@@ -19,5 +19,5 @@ if __name__  == '__main__':
     try:
         register.regist()
     except:
-        logger.exception("Registration to DB failed.")
+        logger.exception("Registration to DB for anime lists is failed.")
         raise

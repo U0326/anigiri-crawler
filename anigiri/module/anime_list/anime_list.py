@@ -71,17 +71,17 @@ class AnimeListRegister:
     def delete_duplicate_word(self, words):
         result_list = []
         for i in range(0, len(words)):
-            logger.debug('検索ワード追加候補: ' + words[i])
+            logger.debug('search word adding candidate: ' + words[i])
             for j in range(0, len(words)):
                 if i == j: continue
-                logger.debug('比較対象: ' + words[j])
+                logger.debug('for comparison: ' + words[j])
                 # キーワード追加候補に含まれる、より短いワードが存在する場合、
                 if words[i].find(words[j]) != -1:
-                    logger.debug('より短いワードが存在する為、検索ワードに追加しません。')
+                    logger.debug('Word is not added, Because shorter one exists.')
                     # 短い方を優先する。
                     break
             else:
-                logger.debug('検索ワードに追加しました。')
+                logger.debug('Word is added.')
                 result_list.append(words[i])
         return result_list
 

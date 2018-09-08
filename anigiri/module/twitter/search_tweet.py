@@ -70,16 +70,15 @@ class SearchTweet:
                     continue
             break
 
-        logger.info('[' + params['q'] + ']で検索した結果、' \
-                + str(tweet_count) + '件ヒットしました。' \
-                'その内ネガティブなワードを含むものが' \
-                + str(negative_tweet_count) + '件でした。')
+        logger.info('Searching with "' + params['q'] + '", ' \
+                'coming out tweet count is "' + str(tweet_count) + '". "' \
+                + str(negative_tweet_count) + '" of these have negative words.')
         return tweet_count, negative_tweet_count
 
     def avoidLimited(self):
         self.search_count += 1
         if self.search_count >= self.LIMITED_COUNT_OF_CONTINUOUSLY_SEARCH:
-            logger.info('APIの利用制限を回避する為、スリープします。')
+            logger.info('Execution sleeps to avoid API restrictions.')
             time.sleep(self.COOLDOWN_MINUTES_OF_SEARCH * 60)
             self.search_count = 0
 

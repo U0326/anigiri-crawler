@@ -7,7 +7,7 @@ import json
 from ..db.setting import session
 from ..db.anime_lists import AnimeList
 from ..db.search_keywords import SearchKeyword
-from ..common.anime_cour import Cours
+from ..util.anime_cour import Cours
 
 import requests
 

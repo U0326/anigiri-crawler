@@ -4,7 +4,7 @@ import pprint
 from ..db.setting import session
 from ..db.anime_lists import AnimeList
 from ..db.search_keywords import SearchKeyword
-from ..common.anime_cour import Cours
+from ..util.anime_cour import Cours
 
 logger = logging.getLogger(__name__)
 
@@ -27,11 +27,11 @@ class SearchWordsTaker:
 
     def take_search_words(self, anime):
         try:
-            rows = session.query(SearchKeyword.keyword) \
+            keyword_records = session.query(SearchKeyword.keyword) \
                     .filter(SearchKeyword.anime_id == anime.row_id) \
                     .all()
-            logger.debug(pprint.pformat(rows))
-            return list(map(lambda row:row.keyword, rows))
+            logger.debug(pprint.pformat(keyword_records))
+            return list(map(lambda record:record.keyword, keyword_records))
         except:
             logger.exception("Taking search words is failed.")
             raise

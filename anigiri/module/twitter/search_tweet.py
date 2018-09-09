@@ -25,6 +25,7 @@ class SearchTweet:
 
     def search_yestaday_tweet(self, query):
         yestaday = (self.today - timedelta(days=1)).date()
+        headers = {'Connection': 'close'}
         params = {
                 'count'         : self.TWEETS_PER_PAGE,
                 'until'         : yestaday.strftime('%Y-%m-%d') + '_23:59:59_JST',
@@ -33,14 +34,15 @@ class SearchTweet:
                 'q'             : query
                 }
 
-        tweet_count = 0
+        total_tweet_count = 0
         negative_tweet_count = 0
         while True:
             if 'max_id' in locals() : params['max_id'] = max_id
             try:
-                self.avoidLimited()
+                self.avoidRestriction()
                 logger.debug('Search query: ' + str(params))
-                response = twitter_api.get(self.SEARCH_URL, params = params)
+                response = twitter_api.get(self.SEARCH_URL, \
+                        params = params, headers = headers)
                 response.raise_for_status()
                 timeline = json.loads(response.text)['statuses']
                 logger.debug('Timeline size: ' + str(len(timeline)))
@@ -59,7 +61,7 @@ class SearchTweet:
                         # 最初のループに限りbreakを行わない。
                         continue
                     break
-                tweet_count += 1
+                total_tweet_count += 1
                 for word in self.NEGATIVE_WORDS:
                     if tweet['text'].find(word) != -1:
                         negative_tweet_count += 1
@@ -71,14 +73,14 @@ class SearchTweet:
             break
 
         logger.info('Searching with "' + params['q'] + '", ' \
-                'coming out tweet count is "' + str(tweet_count) + '". "' \
+                'coming out tweet count is "' + str(total_tweet_count) + '". "' \
                 + str(negative_tweet_count) + '" of these have negative words.')
-        return tweet_count, negative_tweet_count
+        return total_tweet_count, negative_tweet_count
 
-    def avoidLimited(self):
+    def avoidRestriction(self):
         self.search_count += 1
         if self.search_count >= self.LIMITED_COUNT_OF_CONTINUOUSLY_SEARCH:
-            logger.info('Execution sleeps to avoid API restrictions.')
+            logger.info('Execution sleeps to avoid API restriction.')
             time.sleep(self.COOLDOWN_MINUTES_OF_SEARCH * 60)
             self.search_count = 0
 

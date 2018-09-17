@@ -91,3 +91,8 @@ ENV/
 
 # App settings
 twitter_config.py
+
+# Development environment settings
+bin/
+include/
+pip-selfcheck.json

@@ -89,9 +89,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# App settings
-twitter_config.py
-
 # Development environment settings
 bin/
 include/

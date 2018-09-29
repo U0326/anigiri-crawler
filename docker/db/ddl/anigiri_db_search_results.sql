@@ -32,7 +32,7 @@ CREATE TABLE `search_results` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `fk_tweet_search_results_anime_list1_idx` (`anime_id`),
   CONSTRAINT `fk_tweet_search_results_anime_list1` FOREIGN KEY (`anime_id`) REFERENCES `anime_list` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +44,4 @@ CREATE TABLE `search_results` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-23 15:29:24
+-- Dump completed on 2018-09-29 23:22:30

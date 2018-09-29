@@ -60,13 +60,22 @@ class AnimeListRegister:
 
     def regist_search_keywords(self, src):
         anime = self.select_anime_with_title(src['title'])
-        words = list(filter(lambda str:str!= '', {src['title'], src['title_short1'], \
-                src['title_short2'], src['title_short3']}))
-        for word in self.delete_duplicate_word(words):
+        keywords = self.take_keywords_from_titles(src)
+        keywords += self.take_keyword_from_hashtag(src)
+        for index, keyword in enumerate(keywords):
             search_keyword = SearchKeyword()
             search_keyword.anime_id = anime.row_id
-            search_keyword.keyword = word
+            search_keyword.keyword = keyword
+            if index is len(keywords) - 1:
+                search_keyword.is_hashtag = True
+            else:
+                search_keyword.is_hashtag = False
             session.add(search_keyword)
+
+    def take_keywords_from_titles(self, src):
+        words = list(filter(lambda str:str!= '', {src['title'], src['title_short1'], \
+                src['title_short2'], src['title_short3']}))
+        return self.delete_duplicate_word(words)
 
     def delete_duplicate_word(self, words):
         result_list = []
@@ -85,3 +94,5 @@ class AnimeListRegister:
                 result_list.append(words[i])
         return result_list
 
+    def take_keyword_from_hashtag(self, src):
+        return [src['twitter_hash_tag']]

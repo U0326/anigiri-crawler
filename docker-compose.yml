@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mysql:
+    build: "./docker/db"
+    ports:
+      - "13306:3306"
+    volumes:
+      - "~/garaku/anigiri/mysql:/var/lib/mysql"
+  app:
+    build:
+      context: "./"
+      dockerfile: "./docker/app/Dockerfile"
+    links:
+      - "mysql"
+    volumes:
+      - "./src:/opt/anigiri"

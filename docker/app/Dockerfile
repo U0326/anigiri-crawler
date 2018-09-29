@@ -21,5 +21,3 @@ RUN pip install -r ./requirements.txt
 RUN apt-get --yes install mysql-client
 RUN mkdir -p /var/run/mysqld
 RUN touch /var/run/mysqld/mysqld.sock
-
-CMD python anime_list_invoker.py

@@ -7,6 +7,8 @@ from module.db.setting import session
 from module.db.search_results import SearchResult
 from module.util.db.anime_list_util import AnimeListUtil
 
+log_format = '%(asctime)s %(levelname)s %(name)s :%(message)s'
+logging.basicConfig(level = logging.INFO, format = log_format)
 logger = logging.getLogger(__name__)
 
 if __name__ == '__main__':

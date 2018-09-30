@@ -4,6 +4,8 @@ import logging
 from module.anime_list.anime_list import AnimeListTaker
 from module.anime_list.anime_list import AnimeListRegister
 
+log_format = '%(asctime)s %(levelname)s %(name)s :%(message)s'
+logging.basicConfig(level = logging.INFO, format = log_format)
 logger = logging.getLogger(__name__)
 
 if __name__  == '__main__':

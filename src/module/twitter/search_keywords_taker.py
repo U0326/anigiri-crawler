@@ -7,14 +7,14 @@ from ..util.anime_cour import Cours
 
 logger = logging.getLogger(__name__)
 
-class SearchWordsTaker:
-    def take_search_words(self, anime):
+class SearchKeywordsTaker:
+    def take_search_keywords(self, anime):
         try:
-            keyword_records = session.query(SearchKeyword.keyword) \
+            records = session.query(SearchKeyword) \
                     .filter(SearchKeyword.anime_id == anime.row_id) \
                     .all()
-            logger.debug(pprint.pformat(keyword_records))
-            return list(map(lambda record:record.keyword, keyword_records))
+            logger.debug(pprint.pformat(records))
+            return records
         except:
             logger.exception("Taking search words is failed.")
             raise

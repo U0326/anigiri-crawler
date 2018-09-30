@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `search_results`;
 CREATE TABLE `search_results` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `anime_id` int(10) unsigned NOT NULL,
-  `total_tweet_count` int(10) unsigned NOT NULL,
-  `negative_tweet_count` int(10) unsigned NOT NULL,
+  `sampling_tweet_count` int(10) unsigned NOT NULL COMMENT 'ハッシュタグで検索した結果をtweet数のサンプリングとして保持する。',
+  `gave_up_tweet_count` int(10) unsigned NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
@@ -44,4 +44,4 @@ CREATE TABLE `search_results` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-29 23:22:30
+-- Dump completed on 2018-09-30  1:19:34

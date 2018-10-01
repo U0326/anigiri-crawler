@@ -20,10 +20,13 @@ class AnimeListTaker:
         self.date = date
 
     def request_corrent_cour_list(self):
-        response = requests.get(
-                AnimeListTaker.END_POINT \
-                + "/" + str(self.date.year) \
-                + "/" + str(Cours.convert_month_to_cour(self.date.month)))
+        year = self.date.year
+        cour = Cours.convert_month_to_cour(self.date.month)
+        logger.info('In the request, the parameters year:' \
+                + str(year) +' and cour:' + str(cour)  +' will send.')
+        response = requests.get(AnimeListTaker.END_POINT \
+                + "/" + str(year) + "/" + str(cour))
+        logger.info(str(len(response.json())) + ' animations hit.')
         response.raise_for_status()
         return response.json()
 

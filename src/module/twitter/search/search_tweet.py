@@ -6,8 +6,8 @@ from datetime import datetime, date, timedelta
 from pytz import timezone
 from dateutil import parser
 
-from .twitter_config import twitter_api
-from ..db.search_keywords import SearchKeyword
+from ..twitter_config import twitter_api
+from ...db.search_keywords import SearchKeyword
 
 logger = logging.getLogger(__name__)
 

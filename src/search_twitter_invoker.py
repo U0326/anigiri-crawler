@@ -1,8 +1,8 @@
 import logging
 import datetime
 
-from module.twitter.search_tweet import SearchTweet
-from module.twitter.search_keywords_taker import SearchKeywordsTaker
+from module.twitter.search.search_tweet import SearchTweet
+from module.twitter.search.search_keywords_taker import SearchKeywordsTaker
 from module.db.setting import session
 from module.db.search_results import SearchResult
 from module.util.db.anime_list_util import AnimeListUtil

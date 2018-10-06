@@ -1,9 +1,9 @@
 import logging
 import pprint
 
-from ..db.setting import session
-from ..db.search_keywords import SearchKeyword
-from ..util.anime_cour import Cours
+from ...db.setting import session
+from ...db.search_keywords import SearchKeyword
+from ...util.anime_cour import Cours
 
 logger = logging.getLogger(__name__)
 

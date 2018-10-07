@@ -19,5 +19,13 @@ class AnimeListUtil:
             logger.debug(pprint.pformat(anime_list))
             return anime_list
         except:
-            logger.exception("Taking anime list is failed.")
+            logger.exception('The Anime list could not be retrieved.')
             raise
+
+    @classmethod
+    def take_record_by_anime_id(self, anime_id):
+        try:
+            return session.query(AnimeList).filter(AnimeList.row_id == anime_id).first()
+        except:
+            logger.exception('A record could not be retrieved by anime ID.')
+

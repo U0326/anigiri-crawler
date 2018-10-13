@@ -18,13 +18,12 @@ class SearchTweet:
     LIMITED_COUNT_OF_CONTINUOUSLY_SEARCH = 180
     search_count = 0
 
-    def __init__(self, date):
-        self.today = date
-        self.yestaday = (self.today - timedelta(days=1)).date()
+    def __init__(self, target_date):
+        self.target_date = target_date
         # tweetの検索時にmax_idを指定することで、そのid以前のtweetのみを対象にできる。
         self.max_id = 0
 
-    def search_yestaday_tweet(self, search_keywords):
+    def search_tweet(self, search_keywords):
         sampling_tweet_count = 0
         gave_up_tweet_count = 0
         for search_keyword in search_keywords:
@@ -40,7 +39,7 @@ class SearchTweet:
         headers = {'Connection': 'close'}
         params = {
                 'count'         : self.TWEETS_PER_PAGE,
-                'until'         : self.yestaday.strftime('%Y-%m-%d') + '_23:59:59_JST',
+                'until'         : self.target_date.strftime('%Y-%m-%d') + '_23:59:59_JST',
                 'result_type'   : 'mixed',
                 'lang'          : 'ja',
                 'q'             : keyword + ' exclude:retweets'
@@ -84,7 +83,7 @@ class SearchTweet:
             logger.debug('tweet created at: ' + tweet['created_at'])
             created_date = parser.parse(tweet['created_at']) \
                     .astimezone(timezone('Asia/Tokyo')).date()
-            if created_date < self.yestaday:
+            if created_date < self.target_date:
                 if self.max_id == 0:
                     # 人気が高いツイートは作成日に関わらず、タイムラインの上位となる為、
                     # 初回のループに限りbreakを行わない。

@@ -40,7 +40,7 @@ class DailyGaveUpTweetWriter(TweetWriter):
     def take_yestaday_search_results(self):
         yestaday = (self.today - timedelta(days=1)).date()
         yestaday_search_results = session.query(SearchResult) \
-                .filter(SearchResult.created_at.like(yestaday.strftime('%Y-%m-%d') + '%')) \
+                .filter(SearchResult.tweeted_date == (yestaday.strftime('%Y-%m-%d'))) \
                 .all()
         logger.debug('yestaday search results: ' + pprint.pformat(yestaday_search_results))
         return yestaday_search_results

@@ -16,20 +16,17 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `anime_list`
+-- Table structure for table `terms`
 --
 
-DROP TABLE IF EXISTS `anime_list`;
+DROP TABLE IF EXISTS `terms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `anime_list` (
+CREATE TABLE `terms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `term_id` int(10) unsigned NOT NULL,
-  `title` varchar(100) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `fk_anime_list_terms1_idx` (`term_id`),
-  CONSTRAINT `fk_anime_list_terms1` FOREIGN KEY (`term_id`) REFERENCES `terms` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `year` year(4) NOT NULL,
+  `cour` int(1) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -42,4 +39,4 @@ CREATE TABLE `anime_list` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-13 21:24:40
+-- Dump completed on 2019-01-13 21:24:41

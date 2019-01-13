@@ -5,6 +5,7 @@ import logging
 import json
 
 from ..db.setting import session
+from ..db.terms import Terms
 from ..db.anime_lists import AnimeList
 from ..db.search_keywords import SearchKeyword
 from ..util.anime_cour import Cours
@@ -31,26 +32,45 @@ class AnimeListTaker:
         return response.json()
 
 
+# DBアクセスに関して、別クラスに抜き出したい。
 class AnimeListRegister:
     def __init__(self, date, anime_list):
         self.date = date
         self.anime_list = anime_list
 
     def regist(self):
-        for element in self.anime_list:
-            try:
+        try:
+            term = self.insert_term_if_not_exists()
+            for element in self.anime_list:
                 if self.select_anime_with_title(element['title']): continue
-                self.regist_anime_list(element)
+                self.regist_anime_list(element, term)
                 self.regist_search_keywords(element)
-                session.commit()
-            except:
-                session.rollback()
-                raise
+        except:
+            session.rollback()
+            raise
+        session.commit()
 
-    def regist_anime_list(self, src):
+    def insert_term_if_not_exists(self):
+        hit = self.select_term_with_year_and_cour()
+        if hit: return hit
+        term = Terms()
+        term.year = self.date.year
+        term.cour = Cours.convert_month_to_cour(self.date.month)
+        session.add(term)
+        session.flush()
+        return term
+        
+    def select_term_with_year_and_cour(self):
+        term = session.query(Terms) \
+                .filter(Terms.year == self.date.year, \
+                        Terms.cour == Cours.convert_month_to_cour(self.date.month)) \
+                .first()
+        logger.debug(str(term))
+        return term
+
+    def regist_anime_list(self, src, term):
         anime = AnimeList()
-        anime.year = self.date.year
-        anime.cour = Cours.convert_month_to_cour(self.date.month)
+        anime.term_id = term.row_id
         anime.title = src['title']
         session.add(anime)
 

@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: anigiri_db
 -- ------------------------------------------------------
--- Server version	5.7.23
+-- Server version	5.7.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -43,4 +43,4 @@ CREATE TABLE `search_keywords` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-30  1:19:34
+-- Dump completed on 2019-01-13 21:24:40

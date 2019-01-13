@@ -1,18 +1,19 @@
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.dialects import mysql
 
 from .setting import Base
 from .setting import ENGINE
 
-class AnimeList(Base):
-    __tablename__ = 'anime_list'
+class Terms(Base):
+    __tablename__ = 'terms'
     row_id = Column('id', Integer, primary_key = True)
-    term_id = Column('term_id', Integer)
-    title = Column('title', String(100))
+    year = Column('year', mysql.YEAR)
+    cour = Column('cour', Integer)
 
     def __repr__(self):
         string = self.__class__.__name__
         string += ' id:' + str(self.row_id)
-        string += ', term_id:' + str(self.term_id)
-        string += ', title:' + self.title
+        string += ', year:' + str(self.year)
+        string += ', cour:' + str(self.cour)
         return string
 

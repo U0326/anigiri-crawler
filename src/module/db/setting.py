@@ -5,7 +5,7 @@ from sqlalchemy.ext.declarative import declarative_base
 DATABASE = 'mysql://%s:%s@%s/%s?charset=utf8' % (
     "anigiri",      # user_name
     "password",  # password
-    "mysql",    # host_ip
+    "anigiri-db",    # host_ip
     "anigiri_db",   # db_name
 )
 

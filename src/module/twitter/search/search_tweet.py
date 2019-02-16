@@ -61,7 +61,7 @@ class SearchTweet:
                 logger.exception('A HTTP request to take tweet is failed.')
                 raise
             tweet_count, is_need_next_timeline = self.parse_timeline(timeline)
-            logger.info('Searching with "' + params['q'] + '", ' \
+            logger.debug('Searching with "' + params['q'] + '", ' \
                     'coming out tweet count is "' + str(tweet_count) + '".')
             tweet_count_result += tweet_count
             if not is_need_next_timeline: break

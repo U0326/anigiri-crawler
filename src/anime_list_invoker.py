@@ -9,6 +9,7 @@ logging.basicConfig(level = logging.INFO, format = log_format)
 logger = logging.getLogger(__name__)
 
 if __name__  == '__main__':
+    logger.info('anime_list_invoker start.')
     date = datetime.datetime.now()
     taker = AnimeListTaker(date)
     try:
@@ -23,3 +24,4 @@ if __name__  == '__main__':
     except:
         logger.exception("Registration to DB for anime lists is failed.")
         raise
+    logger.info('anime_list_invoker end.')

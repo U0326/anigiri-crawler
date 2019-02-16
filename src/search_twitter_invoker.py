@@ -25,6 +25,7 @@ def isValitArgs(args):
     return True
 
 if __name__ == '__main__':
+    logger.info('search_twitter_invoker start.')
     args = sys.argv
     if not isValitArgs(args): sys.exit()
     days_ago = args[1] if len(args) == 2 else 1
@@ -53,4 +54,5 @@ if __name__ == '__main__':
             raise
 
     session.commit()
+    logger.info('search_twitter_invoker end.')
 
